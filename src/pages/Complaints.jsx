@@ -13,6 +13,7 @@ const Complaints = ({ token, user, onLogout }) => {
     amountDisputed: "",
     targetCompany: "",
     targetCompanyEmail: "",
+    status: "Pending",
   });
   const [editingId, setEditingId] = useState(null);
 
@@ -108,6 +109,7 @@ const Complaints = ({ token, user, onLogout }) => {
         amountDisputed: "",
         targetCompany: "",
         targetCompanyEmail: "",
+        status: "Pending",
       });
       setEditingId(null);
       setShowModal(false);
@@ -131,6 +133,7 @@ const Complaints = ({ token, user, onLogout }) => {
       amountDisputed: complaint.amountDisputed || "",
       targetCompany: complaint.targetCompany || "",
       targetCompanyEmail: complaint.targetCompanyEmail || "",
+      status: complaint.status || "Pending",
     });
     setShowModal(true);
   };
@@ -175,6 +178,7 @@ const Complaints = ({ token, user, onLogout }) => {
                   amountDisputed: "",
                   targetCompany: "",
                   targetCompanyEmail: "",
+                  status: "Pending",
                 });
                 setShowModal(true);
               }}
@@ -308,6 +312,31 @@ const Complaints = ({ token, user, onLogout }) => {
                   placeholder="Name of the company"
                   required
                 />
+              </div>
+
+              <div className="field">
+                <label htmlFor="status">Status *</label>
+                <select
+                  id="status"
+                  name="status"
+                  value={formData.status}
+                  onChange={handleFormChange}
+                  required
+                >
+                  {user?.role === "admin" ? (
+                    <>
+                      <option value="">Select status</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Resolved">Resolved</option>
+                      <option value="Rejected">Rejected</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value="Pending">Pending</option>
+                      <option value="Resolved">Resolved</option>
+                    </>
+                  )}
+                </select>
               </div>
 
               <div className="field">
